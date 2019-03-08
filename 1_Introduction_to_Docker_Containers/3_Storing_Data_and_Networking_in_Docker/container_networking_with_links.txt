@@ -1,0 +1,22 @@
+Instructions
+Create a network link between the two Docker containers, spacebones:thewebsite & treatlist using legacy Docker links. Use the image found at spacebones/postgres to create the database.
+
+Objectives
+help
+Verify SpaceBones Container is Running
+If not running, start a new container using the Docker container image spacebones:thewebsite
+
+help
+Create treatlist Container
+If not already running, create a new container from the spacebones/postgres image named treatlist.
+
+help
+Create Network Link
+Link the spacebones container with the bacon container using legacy docker network links
+
+
+SOLUTION
+docker run -d -p 80:80 --name spacebones spacebones/spacebones:thewebsite
+docker run -d -P --name treatlist --link spacebones:spacebones spacebones/postgres
+docker inspect -f "{{ .HostConfig.Links }}" treatlist
+

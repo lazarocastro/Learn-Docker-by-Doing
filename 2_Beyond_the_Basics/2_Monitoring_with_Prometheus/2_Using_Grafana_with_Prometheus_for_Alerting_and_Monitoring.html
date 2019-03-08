@@ -1,0 +1,204 @@
+<mat-card _ngcontent-c17="" class="mat-card"><h3 _ngcontent-c17="" class="ng-tns-c17-2">Instructions</h3><app-render-markdown _ngcontent-c17="" _nghost-c9="" class="ng-tns-c17-2"><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>In this learning activity, you are tasked with setting up Prometheus and Grafana.</p>
+<p>The environment has 4 containers running: <code>prometheus</code>, <code>cadvisor</code>, <code>nginx</code>, and <code>redis</code>.</p>
+<h4 id="configure-docker-">Configure Docker:</h4>
+<ol>
+<li>Create a <code>daemon.json</code> file for Docker.</li><li>Add <code>"metrics-addr"</code> and set it to <code>"0.0.0.0:9323"</code>.</li><li>Set <code>"experimental"</code> to <code>true</code>.</li><li>Restart the Docker service.</li></ol>
+<h4 id="update-prometheus-">Update Prometheus:</h4>
+<ol>
+<li>Update the <code>prometheus.yml</code> file that is located in <code>/root</code>.</li><li>Rename the <code>cadvisor</code> job to <code>prometheus</code>.</li><li>Under <code>targets</code>, add the following:<ul>
+<li><code>prometheus:9090</code></li><li><code>node-exporter:9100</code></li><li><code>pushgateway:9091</code></li></ul>
+</li><li>Create a new job called <code>docker</code>.</li><li>Set the scrape interval to 5 seconds.</li><li>Create a static config and targets.</li><li>Add the private IP with port <code>9323</code> as a target.</li></ol>
+<h4 id="update-docker-compose-">Update Docker Compose:</h4>
+<ol>
+<li>Open <code>docker-compose.yml</code>.</li><li>Add a new service called <code>pushgateway</code>.</li><li>Use the <code>prom/pushgateway</code> image.</li><li>Name the container <code>pushgateway</code>.</li><li>Map port <code>9091</code> to port <code>9091</code> on the container.</li><li>Add a new service called <code>node-exporter</code>.</li><li>Use <code>prom/node-exporter:latest</code> for the image.</li><li>Name the container <code>node-exporter</code>.</li><li>Map port <code>9100</code> to port <code>9100</code> on the container.</li><li>Create a new service called <code>grafana</code>.</li><li>Use the <code>grafana/grafana</code> image.</li><li>Name the container <code>grafana</code>.</li><li>Map port <code>3000</code> to port <code>3000</code> on the container.</li><li>Create an environment variable called <code>GF_SECURITY_ADMIN_PASSWORD</code> and set it to <code>password</code>.</li><li>Make sure that it depends on <code>prometheus</code> and the <code>cadvisor</code> containers.</li><li>Execute <code>docker-compose up -d</code> to rebuild the environment.</li><li>Verify that all of your Prometheus targets are healthy by going to <code>http://&lt;PUBLIC_IP&gt;:9090/targets</code>.</li></ol>
+<h4 id="create-a-new-grafana-datasource-">Create a New Grafana Datasource:</h4>
+<ol>
+<li>Log in to Grafana at <code>http://&lt;PUBLIC_IP&gt;:3000/login</code> with the username <code>admin</code> and the password <code>password</code>.</li><li>Add a new datasource called <code>Prometheus</code> and set it to the <code>prometheus</code> type.</li><li>Set the URL to <code>http://&lt;PRIVATE_IP&gt;:9090</code>.</li></ol>
+<h4 id="add-the-docker-dashboard-to-grafana-">Add the Docker Dashboard to Grafana:</h4>
+<ol>
+<li>Import the new dashboard using the JSON file located <a href="https://raw.githubusercontent.com/linuxacademy/content-intermediate-docker-quest-prometheus/master/dashboards/docker_and_system.json">here</a>. </li><li>Set <code>Prometheus</code> to the datasource you created. </li><li>Set the quick range to <code>Last 5 minutes</code>.</li></ol>
+<h4 id="add-an-email-notification-channel-">Add an Email Notification Channel:</h4>
+<ol>
+<li>Create a new Email Notification Channel.</li><li>Name the channel <code>Email</code>.</li><li>Add your email address to the notification.</li></ol>
+<h4 id="create-an-alert-for-cpu-usage-">Create an Alert for CPU Usage:</h4>
+<ol>
+<li>Edit the CPU Usage graph.</li><li>On the Metrics tab, create a new query: <code>sum(rate(process_cpu_seconds_total[1m])) * 100</code></li><li>Hide it from view.</li><li>Set the alert condition to use the new query. It should be E in the dropdown menu.</li><li>Set the Is Above condition to <code>75</code>.</li><li>In the Notification section, set the alert to <code>Email Alerts</code>.</li><li>The message should say “CPU usage is over 75%”.</li><li>Save your changes.</li></ol>
+</div></div></div><!----></div></md-editor></app-render-markdown><h3 _ngcontent-c17="" class="ng-tns-c17-2">Objectives</h3><!----><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Configure Docker.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Open <code>/etc/docker/daemon.json</code> and add the following.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">{
+  "metrics-addr" : "0.0.0.0:9323",
+  "experimental" : true
+}</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Update `prometheus.yml`.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Edit the <code>prometheus.yml</code> file in the <code>/root</code> directory.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">vi ~/prometheus.yml</code></pre><p>Change the contents to reflect the following:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">scrape_configs:
+  - job_name: prometheus
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - prometheus:9090
+      - node-exporter:9100
+      - pushgateway:9091
+      - cadvisor:8080
+
+  - job_name: docker
+    scrape_interval: 5s
+    static_configs:
+    - targets:
+      - PRIVATE_IP_ADDRESS:9323</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Update `docker-compose.yml`.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Edit <code>docker-compose.yml</code> in the <code>/root</code> directory.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">vi ~/docker-compose.yml</code></pre><p>Change the contents to reflect the following:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+  pushgateway:
+    image: prom/pushgateway
+    container_name: pushgateway
+    ports:
+      - 9091:9091
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: unless-stopped
+    expose:
+      - 9100
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=password
+    depends_on:
+      - prometheus
+      - cadvisor
+</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Install the Docker and System Monitoring dashboard.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Click the plus sign (<code>+</code>) on the left side of the Grafana interface.
+Click <strong>Import</strong>.
+Copy the contents of the <a href="https://raw.githubusercontent.com/linuxacademy/content-intermediate-docker-quest-prometheus/master/dashboards/docker_and_system.json">JSON file</a> included in the lab instructions.</p>
+<p>Paste the contents of the JSON file into the Import screen of the Grafana interface, and click <strong>Load</strong>.
+In the upper right-hand corner, click on <strong>Refresh every 5m</strong> and select <strong>Last 5 minutes</strong>.</p>
+</div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div></mat-card>
+
+
+
+<h1>Solution</h1>
+<pre>
+    <code>
+[root@ip-10-0-1-15 ~]# vim /etc/docker/daemon.json
+[root@ip-10-0-1-15 ~]# cat /etc/docker/daemon.json
+{
+  "metrics-addr": "0.0.0.0:9323",
+  "experimental": true
+}
+[root@ip-10-0-1-15 ~]# systemctl restart docker
+[root@ip-10-0-1-15 ~]# vim prometheus.yml
+[root@ip-10-0-1-15 ~]# cat prometheus.yml
+scrape_configs:
+- job_name: cadvisor
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - cadvisor:8080
+[root@ip-10-0-1-15 ~]# vim prometheus.yml
+[root@ip-10-0-1-15 ~]# cat prometheus.yml
+scrape_configs:
+- job_name: prometheus
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - prometheus:9090
+    - node-exporter:9100
+    - pushgateway:9091
+    - cadvisor:8080
+
+- job_name: docker
+  scrape_interval: 5s
+  static_configs:
+  - targets:
+    - 10.0.1.15:9323
+[root@ip-10-0-1-15 ~]# cat docker-compose.yml
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+[root@ip-10-0-1-15 ~]# vim docker-compose.yml 
+[root@ip-10-0-1-15 ~]# cat docker-compose.yml 
+version: '3'
+services:
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - 9090:9090
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+    depends_on:
+      - cadvisor
+  cadvisor:
+    image: google/cadvisor:latest
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+  pushgateway:
+    image: prom/pushgateway:latest
+    container_name: pushgateway
+    ports:
+      - 9091:9091
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    ports:
+      - 9100:9100
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - 3000:3000
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=password
+
+    </code>
+</pre>

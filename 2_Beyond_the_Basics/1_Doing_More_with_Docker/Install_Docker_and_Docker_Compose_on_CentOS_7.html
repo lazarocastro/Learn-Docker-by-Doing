@@ -1,0 +1,44 @@
+<div id="wiki-body" class="mt-4 flex-auto min-width-0 gollum-markdown-content instapaper_body">
+        <div class="markdown-body">
+          <h1>
+<a id="user-content-install-docker--docker-compose---centos-7" class="anchor" href="#install-docker--docker-compose---centos-7" aria-hidden="true"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Install Docker &amp; Docker Compose - Centos 7</h1>
+<h2>
+<a id="user-content-step-1--install-docker" class="anchor" href="#step-1--install-docker" aria-hidden="true"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 1 — Install Docker</h2>
+<p>Install needed packages:</p>
+<div class="highlight highlight-source-shell"><pre>$ sudo yum install -y yum-utils device-mapper-persistent-data lvm2</pre></div>
+<p>Configure the docker-ce repo:</p>
+<pre><code>$ sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+</code></pre>
+<p>Install docker-ce:</p>
+<pre><code>$ sudo yum install docker-ce
+</code></pre>
+<p>Add your user to the docker group with the following command.</p>
+<pre><code>$ sudo usermod -aG docker $(whoami)
+</code></pre>
+<p>Set Docker to start automatically at boot time:</p>
+<pre><code>$ sudo systemctl enable docker.service
+</code></pre>
+<p>Finally, start the Docker service:</p>
+<pre><code>$ sudo systemctl start docker.service
+</code></pre>
+<h2>
+<a id="user-content-step-2--install-docker-compose" class="anchor" href="#step-2--install-docker-compose" aria-hidden="true"><svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M4 9h1v1H4c-1.5 0-3-1.69-3-3.5S2.55 3 4 3h4c1.45 0 3 1.69 3 3.5 0 1.41-.91 2.72-2 3.25V8.59c.58-.45 1-1.27 1-2.09C10 5.22 8.98 4 8 4H4c-.98 0-2 1.22-2 2.5S3 9 4 9zm9-3h-1v1h1c1 0 2 1.22 2 2.5S13.98 12 13 12H9c-.98 0-2-1.22-2-2.5 0-.83.42-1.64 1-2.09V6.25c-1.09.53-2 1.84-2 3.25C6 11.31 7.55 13 9 13h4c1.45 0 3-1.69 3-3.5S14.5 6 13 6z"></path></svg></a>Step 2 — Install Docker Compose</h2>
+<p>Install Extra Packages for Enterprise Linux</p>
+<pre><code>$ sudo yum install epel-release
+</code></pre>
+<p>Install python-pip</p>
+<pre><code>$ sudo yum install -y python-pip
+</code></pre>
+<p>Then install Docker Compose:</p>
+<pre><code>$ sudo pip install docker-compose
+</code></pre>
+<p>You will also need to upgrade your Python packages on CentOS 7 to get docker-compose to run successfully:</p>
+<pre><code>$ sudo yum upgrade python*
+</code></pre>
+<p>To verify a successful Docker Compose installation, run:</p>
+<pre><code>$ docker-compose version
+</code></pre>
+
+        </div>
+
+    </div>

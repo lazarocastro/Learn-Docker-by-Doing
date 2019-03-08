@@ -1,0 +1,188 @@
+<mat-card _ngcontent-c17="" class="mat-card"><h3 _ngcontent-c17="" class="ng-tns-c17-2">Instructions</h3><app-render-markdown _ngcontent-c17="" _nghost-c9="" class="ng-tns-c17-2"><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>In this learning activity, you will deploy a container that uses labels. In order to complete this learning activity, you will need a <a href="https://hub.docker.com/">Docker Hub</a> account.</p>
+<p>Log in to your Docker workstation and Docker server, and <code>sudo</code> to <code>root</code>. You will create the Dockerfile and image on the Docker workstation. The <code>weather-app</code> container will be run on your Docker server.</p>
+<h4 id="create-the-dockerfile">Create the Dockerfile</h4>
+<ol>
+<li>The base image should be <code>node</code>.</li><li>Add three arguments: <code>BUILD_VERSION</code>, <code>BUILD_DATE</code>, and <code>APPLICATION_NAME</code>.</li><li>Add three labels:<ul>
+<li><code>org.label-schema.build-date</code> (will be set using the <code>BUILD_VERSION</code> argument)</li><li><code>org.label-schema.application</code> (will be set using the <code>APPLICATION_NAME</code> argument)</li><li><code>org.label-schema.version</code> (will be set using the <code>BUILD_VERSION</code> argument)</li></ul>
+</li><li>Using the <code>RUN</code> instruction, make a directory called <code>/var/node</code>.  </li><li>Use the <code>ADD</code> instruction to add the contents of the code directory into <code>/var/node</code>.  </li><li>Make <code>/var/node</code> the working directory.  </li><li>Execute an <code>npm install</code>.  </li><li>Expose port <code>3000</code>.  </li><li>Set <code>./bin/www</code> as the command.  </li><li>From the command line, log in to Docker Hub.</li><li>Build your image using <code>&lt;USERNAME&gt;/weather-app</code>, and supply the following three build arguments:<ul>
+<li><code>BUILD_DATE</code> should be set to <code>$(date -u +'%Y-%m-%dT%H:%M:%SZ')</code>.</li><li><code>APPLICATION_NAME</code> should be set to <code>weather-app</code>.</li><li><code>BUILD_VERSION</code> should be set to <code>v1.0</code>.</li></ul>
+</li><li>Push the image to Docker Hub.</li></ol>
+<h4 id="create-the-weather-app">Create the weather app</h4>
+<ol>
+<li>Create a Docker container called <code>weather-app</code>.</li><li>The port mapping should be port <code>80</code> on the host, mapping to <code>3000</code> on the container.</li><li>The restart policy should be set to <code>always</code>.</li><li>Use the image that you created, <code>&lt;USERNAME&gt;/weather-app</code>.</li><li>Use the <code>docker inspect</code> command with the <code>filter</code> flag to filter output for <code>{{.Config.Labels}}</code>.</li></ol>
+<h4 id="update-the-weather-app-to-version-1-1">Update the weather app to version 1.1</h4>
+<ol>
+<li>Change directories to <code>/root/weather-app</code>.</li><li>Check out branch <code>v1.1</code>.</li><li>Change directories back to <code>/root</code>.</li><li>Rebuild your image with the following build arguments:<ul>
+<li><code>BUILD_DATE</code> should be set to <code>$(date -u +'%Y-%m-%dT%H:%M:%SZ')</code>.</li><li><code>APPLICATION_NAME</code> should be set to <code>weather-app</code>.</li><li><code>BUILD_VERSION</code> should be set to <code>v1.1</code>.</li></ul>
+</li><li>Push the image to Docker Hub.</li></ol>
+<h4 id="watchtower-will-update-weather-app">Watchtower will update <code>weather-app</code></h4>
+<ol>
+<li>The Watchtower interval is set to 5 seconds. After about 10 or 15 seconds, check to see if <code>weather-app</code> has been updated by executing <code>docker ps</code>.</li><li>Use the <code>docker inspect</code> command with the <code>filter</code> flag to filter output for <code>{{.Config.Labels}}</code> to see if the version is set to <code>1.1</code>.</li></ol>
+</div></div></div><!----></div></md-editor></app-render-markdown><h3 _ngcontent-c17="" class="ng-tns-c17-2">Objectives</h3><!----><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Create a Dockerfile.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Create a Dockerfile using the following instructions:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">FROM node
+
+LABEL maintainer="EMAIL_ADDRESS"
+
+ARG BUILD_VERSION
+ARG BUILD_DATE
+ARG APPLICATION_NAME
+
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.applicaiton=$APPLICATION_NAME
+LABEL org.label-schema.version=$BUILD_VERSION
+
+RUN mkdir -p /var/node
+ADD weather-app/ /var/node/
+WORKDIR /var/node
+RUN npm install
+EXPOSE 3000
+CMD ./bin/www</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Build the Docker image.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Build the Docker image using the following parameters:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker build -t rivethead42/weather-app --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') /
+--build-arg APPLICATION_NAME=weather-app --build-arg BUILD_VERSION=v1.0  -f Dockerfile .</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Push the image to Docker Hub.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p> Push the <code>weather-app</code> image to Docker Hub.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined"> docker push USERNAME/weather-app</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Create the `weather-app` container.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Start the <code>weather-app</code> container.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker run -d --name demo-app -p 80:3000 --restart always USERNAME/weather-app</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Check out version v1.1 of the weather app.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>In the <code>weather-app</code> directory, check out version v1.1 of the weather app.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">cd weather-app
+git checkout v1.1
+cd ../ </code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Rebuild the `weather-app` image.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Rebuild and push the <code>weather-app</code> image.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker build -t rivethead42/weather-app --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') /
+--build-arg APPLICATION_NAME=weather-app --build-arg BUILD_VERSION=v1.1  -f Dockerfile .
+
+docker push rivethead42/weather-app</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div></mat-card>
+
+<h1>Solution</h1>
+<h2>Docker Workstation:</h2>
+<pre>
+    <code>
+[root@ip-10-0-1-61 ~]# ls
+anaconda-ks.cfg  weather-app
+[root@ip-10-0-1-61 ~]# vim Dockerfile
+[root@ip-10-0-1-61 ~]# cat Dockerfile 
+FROM node
+
+LABEL maintainer="lazaro.castro@gmail.com"
+
+ARG BUILD_VERSION
+ARG BUILD_DATE
+ARG APPLICATION_NAME
+
+LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.application=$APPLICATION_NAME
+LABEL org.label-schema.version=$BUILD_VERSION
+
+RUN mkdir -p /var/node
+ADD weather-app/ /var/node/
+WORKDIR /var/node
+RUN npm install 
+EXPOSE 3000
+CMD ./bin/www
+[root@ip-10-0-1-61 ~]# docker login
+Login with your Docker ID to push and pull images from Docker Hub. If you don't have a Docker ID, head over to https://hub.docker.com to create one.
+Username: lazarocastro
+Password: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+[root@ip-10-0-1-61 ~]# docker build -t lazarocastro/weather-app --build-arg BUILD_DATE=$(date -u +'%Y-%m-%dT%H:%M:%SZ') \
+> --build-arg APPLICATION_NAME=weather-app --build-arg BUILD_VERSION=v1.0 -f Dockerfile .
+Sending build context to Docker daemon  209.4kB
+Step 1/14 : FROM node
+latest: Pulling from library/node
+cd8eada9c7bb: Pull complete 
+c2677faec825: Pull complete 
+fcce419a96b1: Pull complete 
+045b51e26e75: Pull complete 
+3b969ad6f147: Pull complete 
+a81151df0bcd: Pull complete 
+f479afd2049b: Pull complete 
+1a9c90bd424a: Pull complete 
+Digest: sha256:5ea9b2d04e1da959087d93289bdcfa5011c3a173bddf3eaf98553676d28b8f63
+Status: Downloaded newer image for node:latest
+ ---> 72ff1a4450d9
+Step 2/14 : LABEL maintainer="lazaro.castro@gmail.com"
+ ---> Running in 379beaa86e98
+Removing intermediate container 379beaa86e98
+ ---> 3421dcc2e4df
+Step 3/14 : ARG BUILD_VERSION
+ ---> Running in 098b7c548f82
+Removing intermediate container 098b7c548f82
+ ---> db267ff5b47d
+Step 4/14 : ARG BUILD_DATE
+ ---> Running in 612958a3ecd9
+Removing intermediate container 612958a3ecd9
+ ---> 93d1a54b5095
+Step 5/14 : ARG APPLICATION_NAME
+ ---> Running in 8c8290358f6d
+Removing intermediate container 8c8290358f6d
+ ---> b53b372f6bce
+Step 6/14 : LABEL org.label-schema.build-date=$BUILD_DATE
+ ---> Running in 2fe62f4e2e6a
+Removing intermediate container 2fe62f4e2e6a
+ ---> 4ed33c9a1fb4
+Step 7/14 : LABEL org.label-schema.application=$APPLICATION_NAME
+ ---> Running in 5842908a25d7
+Removing intermediate container 5842908a25d7
+ ---> ef6ce7572416
+Step 8/14 : LABEL org.label-schema.version=$BUILD_VERSION
+ ---> Running in 3ab1be46530b
+Removing intermediate container 3ab1be46530b
+ ---> 46b8d35089ce
+Step 9/14 : RUN mkdir -p /var/node
+ ---> Running in 01ab7acc3549
+Removing intermediate container 01ab7acc3549
+ ---> 72a3c94f6599
+Step 10/14 : ADD weather-app/ /var/node/
+ ---> 1ded07a47bad
+Step 11/14 : WORKDIR /var/node
+ ---> Running in 5e76cfb9518c
+Removing intermediate container 5e76cfb9518c
+ ---> bc691b2bfd67
+Step 12/14 : RUN npm install
+ ---> Running in 9093a2918a35
+added 169 packages from 223 contributors and audited 310 packages in 4.892s
+found 3 moderate severity vulnerabilities
+  run `npm audit fix` to fix them, or `npm audit` for details
+Removing intermediate container 9093a2918a35
+ ---> 19b736b6c48a
+Step 13/14 : EXPOSE 3000
+ ---> Running in 8f7322333c26
+Removing intermediate container 8f7322333c26
+ ---> fa8e680b8e40
+Step 14/14 : CMD ./bin/www
+ ---> Running in 8c95e5df981f
+Removing intermediate container 8c95e5df981f
+ ---> aded9f6fa1f3
+Successfully built aded9f6fa1f3
+Successfully tagged lazarocastro/weather-app:latest
+[root@ip-10-0-1-61 ~]# docker images
+REPOSITORY                 TAG                 IMAGE ID            CREATED             SIZE
+lazarocastro/weather-app   latest              aded9f6fa1f3        7 seconds ago       919MB
+node                       latest              72ff1a4450d9        6 days ago          898MB
+[root@ip-10-0-1-61 ~]# docker inspect aded9f6fa1f3
+[root@ip-10-0-1-61 ~]# docker push lazarocastro/weather-app
+The push refers to repository [docker.io/lazarocastro/weather-app]
+f942623ecefb: Pushed 
+497c258c671c: Pushed 
+e32bbfb3fdd8: Pushed 
+0ae0970278f4: Mounted from library/node 
+1875c7f9d659: Mounted from library/node 
+8ed6596b2a0a: Mounted from library/node 
+1a36262221c3: Mounted from library/node 
+d2217ead3a1c: Mounted from library/node 
+b53b57a50746: Mounted from library/node 
+d2518892581f: Mounted from library/node 
+c581f4ede92d: Mounted from library/node 
+latest: digest: sha256:7c317e808f02e6c355dce408560f108ff085c360577bb0d56606aed2ed1fa826 size: 2635
+[root@ip-10-0-1-61 ~]# 
+
+    </code>
+</pre>
+
+
+<h2>Docker Server:</h2>
+<pre>
+    <code>
+
+    </code>
+</pre>

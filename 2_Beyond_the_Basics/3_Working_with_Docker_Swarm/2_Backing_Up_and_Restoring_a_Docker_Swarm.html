@@ -1,0 +1,162 @@
+<div _ngcontent-c12="" class="info-card"><app-lab-tasks _ngcontent-c12="" class="ng-tns-c12-1 ng-tns-c17-2" _nghost-c17=""><mat-card _ngcontent-c17="" class="mat-card"><h3 _ngcontent-c17="" class="ng-tns-c17-2">Instructions</h3><app-render-markdown _ngcontent-c17="" _nghost-c9="" class="ng-tns-c17-2"><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>In this learning activity, you are tasked with backing up and restoring a Docker swarm.</p>
+<ol>
+<li>Use <code>cat</code> on the file <code>swarm-token.txt</code> to show the join token for your worker nodes.</li><li>Add 2 worker nodes to the swarm.</li><li>Scale the backup service up to 3 replicas.</li><li>Stop the Docker service on the master node and use <code>tar</code> to compress the swarm directory.</li><li>Use <code>scp</code> to securely copy the swarm tarball to <code>/home/cloud_user</code> on the backup master node.</li><li>Use <code>tar</code> to extract the tarball.</li><li>Stop the Docker service, restore the swarm directory, and start up the Docker service.</li><li>Force the swarm to reinitialize a new cluster.</li><li>Add the two worker nodes to the swarm.</li></ol>
+</div></div></div><!----></div></md-editor></app-render-markdown><h3 _ngcontent-c17="" class="ng-tns-c17-2">Objectives</h3><!----><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Back up the swarm master.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Stop the <code>docker</code> service on the master node.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">systemctl stop docker</code></pre><p>Back up the <code>/var/lib/docker/swarm/</code> directory.</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">systemctl stop docker
+tar czvf swarm.tgz /var/lib/docker/swarm/</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Restore the swarm on the backup master.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Copy the swarm backup from the master node to the backup master:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">scp swarm.tar.tgz cloud_user@BACKUP_IP_ADDRESS:/home/cloud_user/</code></pre><p>From the backup master, extract the backup file:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">tar xzvf swarm.tar.tgz</code></pre><p>Copy the swarm directory to <code>/var/lib/docker/swarm</code>:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">cd /var/lib/docker
+cp -rf swarm/ /var/lib/docker/</code></pre><p>Reinitialize the swarm:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker swarm init --force-new-cluster</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Add the worker nodes to the restored cluster.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Remove each node from the old swarm:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker swarm leave</code></pre><p>Add each node to the backup swarm:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker swarm join --token TOKEN IP_ADDRESS:2377</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div><div _ngcontent-c17="" class="ng-tns-c17-2 ng-star-inserted" style=""><div _ngcontent-c17="" class="task-container containerX" style="flex-direction: row; box-sizing: border-box; display: flex;"><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 5%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 5%;"><mat-icon _ngcontent-c17="" class="task-help mat-icon material-icons" role="img" aria-hidden="true">help</mat-icon></div><div _ngcontent-c17="" class="task-listing-detail" fxflex="1 1 95%" style="flex: 1 1 100%; box-sizing: border-box; max-width: 95%;"><strong _ngcontent-c17="" class="ng-tns-c17-2">Distribute the replicas across the swarm.</strong><br _ngcontent-c17="" class="ng-tns-c17-2"><div _ngcontent-c17="" class="explanation ng-trigger ng-trigger-showHide" style="max-height: 10000px;"><app-render-markdown _ngcontent-c17="" class="ng-tns-c17-2" _nghost-c9=""><md-editor _ngcontent-c9="" name="Content" _nghost-c11="" class="ng-untouched ng-valid ng-dirty"><div _ngcontent-c11="" class="md-editor-container"><!----><div _ngcontent-c11="" class="editor-container"><div _ngcontent-c11="" style="display: none;"><div _ngcontent-c11="" class="editor-panel" style="height: auto;"><div _ngcontent-c11="" class="ace-editor ace_editor ace-tm"><textarea class="ace_text-input" wrap="off" autocorrect="off" autocapitalize="off" spellcheck="false" style="opacity: 0;"></textarea><div class="ace_gutter"><div class="ace_layer ace_gutter-layer ace_folding-enabled"></div><div class="ace_gutter-active-line"></div></div><div class="ace_scroller"><div class="ace_content"><div class="ace_layer ace_print-margin-layer"><div class="ace_print-margin" style="left: 4px; visibility: visible;"></div></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_text-layer" style="padding: 0px 4px;"></div><div class="ace_layer ace_marker-layer"></div><div class="ace_layer ace_cursor-layer ace_hidden-cursors"><div class="ace_cursor"></div></div></div></div><div class="ace_scrollbar ace_scrollbar-v" style="display: none; width: 20px;"><div class="ace_scrollbar-inner" style="width: 20px;"></div></div><div class="ace_scrollbar ace_scrollbar-h" style="display: none; height: 20px;"><div class="ace_scrollbar-inner" style="height: 20px;"></div></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: hidden;"><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;"></div><div style="height: auto; width: auto; top: 0px; left: 0px; visibility: hidden; position: absolute; white-space: pre; font: inherit; overflow: visible;">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></div></div></div></div><div _ngcontent-c11="" style="display: block;"><div _ngcontent-c11="" class="preview-panel" style="height: auto;"><p>Scale the replicas down to 1:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker service scale backup=1</code></pre><p>Next, scale the replicas up to 3 to distribute the replicas accross the swarm:</p>
+<pre style="padding: 0; border-radius: 0;"><code class="hljs undefined">docker service scale backup=3</code></pre></div></div></div><!----></div></md-editor></app-render-markdown></div></div></div></div></mat-card></app-lab-tasks></div>
+
+<h1>Solution</h1>
+
+<h2>Swarm Server Master</h2>
+<pre>
+    <code>
+[root@ip-10-0-1-126 ~]# ls
+anaconda-ks.cfg  swarm-token.txt
+[root@ip-10-0-1-126 ~]# cat swarm-token.txt 
+Swarm initialized: current node (lnoe3r7wt8djigk1cauxl9jka) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-68gz0lda6grob9d8yby2b5uxrw0cmthisq9lsonmiwxarujlbh-bb9l12s7g8i9p2vhpqk2d11y0 10.0.1.126:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+[root@ip-10-0-1-126 ~]# docker service ls
+ID                  NAME                MODE                REPLICAS            IMAGE               PORTS
+o23bz8mvm6ov        backup              replicated          1/1                 httpd:latest        *:80->80/tcp
+[root@ip-10-0-1-126 ~]# docker service scale backup=3
+backup scaled to 3
+overall progress: 3 out of 3 tasks 
+1/3: running   [==================================================>] 
+2/3: running   [==================================================>] 
+3/3: running   [==================================================>] 
+verify: Service converged 
+[root@ip-10-0-1-126 ~]# docker service ps backup
+ID                  NAME                IMAGE               NODE                         DESIRED STATE       CURRENT STATE               ERROR               PORTS
+d71h8shfdyz6        backup.1            httpd:latest        ip-10-0-1-126.ec2.internal   Running             Running about an hour ago                       
+6ovm7lcswa0u        backup.2            httpd:latest        ip-10-0-1-81.ec2.internal    Running             Running 34 seconds ago                          
+0gdilvvkn2f5        backup.3            httpd:latest        ip-10-0-1-39.ec2.internal    Running             Running 34 seconds ago                          
+[root@ip-10-0-1-126 ~]# systemctl stop docker
+[root@ip-10-0-1-126 ~]# tar czvf swarm.tgz /var/lib/docker/swarm/
+tar: Removing leading `/' from member names
+/var/lib/docker/swarm/
+/var/lib/docker/swarm/certificates/
+/var/lib/docker/swarm/certificates/swarm-root-ca.crt
+/var/lib/docker/swarm/certificates/swarm-node.key
+/var/lib/docker/swarm/certificates/swarm-node.crt
+/var/lib/docker/swarm/docker-state.json
+/var/lib/docker/swarm/worker/
+/var/lib/docker/swarm/worker/tasks.db
+/var/lib/docker/swarm/raft/
+/var/lib/docker/swarm/raft/snap-v3-encrypted/
+/var/lib/docker/swarm/raft/wal-v3-encrypted/
+/var/lib/docker/swarm/raft/wal-v3-encrypted/0000000000000000-0000000000000000.wal
+/var/lib/docker/swarm/state.json
+[root@ip-10-0-1-126 ~]# scp swarm.tgz cloud_user@10.0.1.96:/home/cloud_user
+The authenticity of host '10.0.1.96 (10.0.1.96)' can't be established.
+ECDSA key fingerprint is SHA256:UE+sN0+iPQ+7cJesmyoddnAcwghjsZn0B3BTNl81sDM.
+ECDSA key fingerprint is MD5:a9:fb:06:8c:ce:0e:82:09:e9:f1:fb:38:31:cb:50:a2.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added '10.0.1.96' (ECDSA) to the list of known hosts.
+cloud_user@10.0.1.96's password: 
+swarm.tgz                                                                                                            100%  100KB  28.1MB/s   00:00    
+[root@ip-10-0-1-126 ~]# 
+
+    </code>
+</pre>
+
+<h2>Swarm Slave 1 and 2</h2>
+<h3>First command when you start Swarm Master</h3>
+<pre>
+    <code>
+[root@ip-10-0-1-39 ~]# docker swarm join --token SWMTKN-1-68gz0lda6grob9d8yby2b5uxrw0cmthisq9lsonmiwxarujlbh-bb9l12s7g8i9p2vhpqk2d11y0 10.0.1.126:2377
+This node joined a swarm as a worker.
+[root@ip-10-0-1-39 ~]#
+
+[root@ip-10-0-1-81 ~]# docker swarm join --token SWMTKN-1-68gz0lda6grob9d8yby2b5uxrw0cmthisq9lsonmiwxarujlbh-bb9l12s7g8i9p2vhpqk2d11y0 10.0.1.126:2377
+This node joined a swarm as a worker.
+[root@ip-10-0-1-81 ~]#
+
+    </code>
+</pre>
+<h3>Second command when you stoped the Swarm Master and Started Swarm Backup</h3>
+<p>Was the same command but the IP_ADDRESS is the Swarm Backup server.</p>
+<pre>
+    <code>
+[root@ip-10-0-1-39 ~]# docker swarm leave
+Node left the swarm.
+[root@ip-10-0-1-39 ~]# docker swarm join --token SWMTKN-1-68gz0lda6grob9d8yby2b5uxrw0cmthisq9lsonmiwxarujlbh-bb9l12s7g8i9p2vhpqk2d11y0 10.0.1.96:2377
+This node joined a swarm as a worker.
+[root@ip-10-0-1-39 ~]#
+
+[root@ip-10-0-1-81 ~]# docker swarm leave
+Node left the swarm.
+[root@ip-10-0-1-81 ~]# docker swarm join --token SWMTKN-1-68gz0lda6grob9d8yby2b5uxrw0cmthisq9lsonmiwxarujlbh-bb9l12s7g8i9p2vhpqk2d11y0 10.0.1.96:2377
+This node joined a swarm as a worker.
+[root@ip-10-0-1-81 ~]#
+    </code>
+</pre>
+
+<h2>Swarm Backup</h2>
+<pre>
+    <code>
+[root@ip-10-0-1-96 ~]# ls
+anaconda-ks.cfg
+[root@ip-10-0-1-96 ~]# cd /home/cloud_user/
+[root@ip-10-0-1-96 cloud_user]# ls
+swarm.tgz
+[root@ip-10-0-1-96 cloud_user]# tar xvzf swarm.tgz 
+var/lib/docker/swarm/
+var/lib/docker/swarm/certificates/
+var/lib/docker/swarm/certificates/swarm-root-ca.crt
+var/lib/docker/swarm/certificates/swarm-node.key
+var/lib/docker/swarm/certificates/swarm-node.crt
+var/lib/docker/swarm/docker-state.json
+var/lib/docker/swarm/worker/
+var/lib/docker/swarm/worker/tasks.db
+var/lib/docker/swarm/raft/
+var/lib/docker/swarm/raft/snap-v3-encrypted/
+var/lib/docker/swarm/raft/wal-v3-encrypted/
+var/lib/docker/swarm/raft/wal-v3-encrypted/0000000000000000-0000000000000000.wal
+var/lib/docker/swarm/state.json
+[root@ip-10-0-1-96 cloud_user]# ls
+swarm.tgz  var
+[root@ip-10-0-1-96 cloud_user]# cd var/lib/docker/
+[root@ip-10-0-1-96 docker]# ls
+swarm
+[root@ip-10-0-1-96 docker]# cp -rf swarm/ /var/lib/docker/
+[root@ip-10-0-1-96 docker]# systemctl restart docker
+[root@ip-10-0-1-96 docker]# docker swarm init --force-new-cluster
+Swarm initialized: current node (lnoe3r7wt8djigk1cauxl9jka) is now a manager.
+
+To add a worker to this swarm, run the following command:
+
+    docker swarm join --token SWMTKN-1-68gz0lda6grob9d8yby2b5uxrw0cmthisq9lsonmiwxarujlbh-bb9l12s7g8i9p2vhpqk2d11y0 10.0.1.126:2377
+
+To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.
+
+[root@ip-10-0-1-96 ~]# docker service ps backup
+ID                  NAME                IMAGE               NODE                        DESIRED STATE       CURRENT STATE             ERROR                              PORTS
+9zj7sp75rxyj        backup.1            httpd:latest        ip-10-0-1-96.ec2.internal   Running             Running 15 minutes ago                                       
+6f3t6e5swpym         \_ backup.1        httpd:latest        ip-10-0-1-96.ec2.internal   Shutdown            Complete 15 minutes ago                                      
+d71h8shfdyz6         \_ backup.1        httpd:latest        ip-10-0-1-96.ec2.internal   Shutdown            Failed 16 minutes ago     "No such container: backup.1.d…"   
+1z0ukd4i65qa        backup.2            httpd:latest        ip-10-0-1-96.ec2.internal   Running             Running 15 minutes ago                                       
+wmi8hyofue2y         \_ backup.2        httpd:latest        ip-10-0-1-96.ec2.internal   Shutdown            Complete 15 minutes ago                                      
+6ovm7lcswa0u         \_ backup.2        httpd:latest        ip-10-0-1-81.ec2.internal   Shutdown            Running 28 minutes ago                                       
+zo8fmnto1i2z        backup.3            httpd:latest        ip-10-0-1-96.ec2.internal   Running             Running 15 minutes ago                                       
+wjv61vip5pec         \_ backup.3        httpd:latest        ip-10-0-1-96.ec2.internal   Shutdown            Complete 15 minutes ago                                      
+0gdilvvkn2f5         \_ backup.3        httpd:latest        ip-10-0-1-39.ec2.internal   Shutdown            Running 28 minutes ago                                       
+[root@ip-10-0-1-96 ~]# 
+
+    </code>
+</pre>
